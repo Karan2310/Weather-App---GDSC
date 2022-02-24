@@ -28,6 +28,7 @@ const updateWeatherIcon = (weather) => {
             weatherIcon.src = cloudy
             break;
         case "Haze":
+        case "Smoke":
             weatherIcon.src = haze
             break;
         case "Lightining":
