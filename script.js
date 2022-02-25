@@ -6,8 +6,8 @@ let wind = document.getElementById("wind")
 let humidity = document.getElementById("humidity")
 let pressure = document.getElementById("atmpressure")
 let searchInput = document.getElementById("search")
-let weatherIcon = document.getElementById("weather-icon")
 let searchButton = document.getElementById("searchButton")
+let weatherIcon = document.getElementById("weather-icon")
 const API_KEY = "a9d27289f77c0b7f208946e0c78db9b3";
 
 const updateWeatherIcon = (weather) => {
@@ -61,14 +61,15 @@ const getWeatherData = (reqCity) => {
                 searchInput.value = ""
                 searchButton.innerHTML = ` <i class="fa-solid fa-magnifying-glass"></i>`
             } else {
+                const { name, sys, weather, main, wind } = res;
                 updateWeatherIcon(res.weather[0].main)
-                city.innerHTML = res.name;
-                country.innerHTML = res.sys.country
-                weather.innerHTML = res.weather[0].main
-                temp.innerHTML = Math.round(res.main.temp)
-                wind.innerHTML = res.wind.speed
-                humidity.innerHTML = res.main.humidity
-                pressure.innerHTML = res.main.pressure
+                city.innerHTML = name;
+                country.innerHTML = sys.country
+                weather.innerHTML = weather[0].main
+                temp.innerHTML = Math.round(main.temp)
+                wind.innerHTML = wind.speed
+                humidity.innerHTML = main.humidity
+                pressure.innerHTML = main.pressure
                 searchInput.value = ""
                 searchButton.innerHTML = ` <i class="fa-solid fa-magnifying-glass"></i>`
             }
@@ -82,10 +83,10 @@ const getWeatherData = (reqCity) => {
 
 const handleSubmit = () => {
     if (searchInput.value.trim() === "") {
-        alert("Empty")
+        alert("Search field cannot be Empty!")
         searchInput.value = ""
     } else {
-        searchCity = searchInput.value
+        let searchCity = searchInput.value
         getWeatherData(searchCity);
         searchButton.innerHTML = `<div class="spinner-border text-light" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -93,4 +94,4 @@ const handleSubmit = () => {
     }
 }
 
-document.onload = getWeatherData("Thane")
+document.onload = getWeatherData("Mumbai")
